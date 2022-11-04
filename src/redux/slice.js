@@ -1,6 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import { fetchContacts, addContact, deleteContact, register, logIn, logOut, getUser } from './operations';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+const initialState = {
+  user: { name: null, email: null },
+  token: null,
+  isLoggedIn: false,
+};
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  extraReducers: {
+    [register.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [logIn.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [logOut.fulfilled](state) {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    },
+    [getUser.fulfilled](state, action) {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+    },
+  },
+});
+
+
 const statusPending = (state, action) => {
   state.isLoading = true;
   state.actionTypeStatus = action.type;
@@ -65,5 +99,6 @@ const filtersSlice = createSlice({
 export const phoneBookReducer = phonebookSlice.reducer;
 export const { filterContact } = filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;
+export const authReducer = authSlice.reducer;
 
 export const actions = phonebookSlice.actions;
