@@ -6,7 +6,7 @@ export const PhoneBoockContainer = styled.section`
       rgba(47, 48, 58, 0.4),
       rgba(47, 48, 58, 0.4)
     ),
-    url(https://graphicsland.ru/wp-content/uploads/social_icons_circle_color.png);
+    url(https://emaven.pl/assets/images/news/kontakti.jpg);
   background-attachment: scroll;
   background-position: center;
   background-size: cover;
