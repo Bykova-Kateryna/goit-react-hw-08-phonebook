@@ -23,22 +23,17 @@ export const register = createAsyncThunk(
   }
 );
 
-export const logIn = createAsyncThunk(
-  'auth/login',
-  async (user, thunkAPI) => {
-    try {
-      const response = await axios.post('/users/login', user);
-      setAuthHeader(response.data.token);
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const logIn = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+  try {
+    const response = await axios.post('/users/login', user);
+    setAuthHeader(response.data.token);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
-export const logOut = createAsyncThunk(
-  'auth/logout', 
-  async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     unsetAuthHeader();
@@ -47,25 +42,22 @@ export const logOut = createAsyncThunk(
   }
 });
 
-export const getUser = createAsyncThunk(
-  'auth/getUser',
-  async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+export const getUser = createAsyncThunk('auth/getUser', async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const persistedToken = state.auth.token;
 
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
-    }
-
-    try {
-      setAuthHeader(persistedToken);
-      const response = await axios.get('/users/current');
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+  if (persistedToken === null) {
+    return thunkAPI.rejectWithValue('Unable to fetch user');
   }
-);
+
+  try {
+    setAuthHeader(persistedToken);
+    const response = await axios.get('/users/current');
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',

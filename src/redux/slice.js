@@ -1,31 +1,77 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact, register, logIn, logOut, getUser } from './operations';
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  register,
+  logIn,
+  logOut,
+  getUser,
+} from './operations';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
+import { Report } from 'notiflix/build/notiflix-report-aio';
 const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
+  loading: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: {
+    [register.pending](state) {
+      state.loading = true;
+    },
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
+      state.loading = false;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      Notify.success(`Welcome, ${action.payload.user.name} &#129303;`);
+    },
+    [register.rejected](state) {
+      state.loading = false;
+      Report.warning(
+        'Warning',
+        `Something went wrong or user with this name already exists!`,
+        'Okay'
+      );
+    },
+    [logIn.pending](state) {
+      state.loading = true;
     },
     [logIn.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      state.loading = false;
+      Notify.success(
+        `Glad to see you again, ${action.payload.user.name} &#129303;`
+      );
+    },
+    [logIn.rejected](state) {
+      state.loading = false;
+      Report.warning(
+        'Warning',
+        `Something went wrong or there is no such user!`,
+        'Okay'
+      );
+    },
+    [logOut.pending](state) {
+      state.loading = true;
     },
     [logOut.fulfilled](state) {
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
+      state.loading = false;
+      Notify.info('See you again &#128521;');
+    },
+    [logOut.rejected](state) {
+      state.loading = false;
+      Report.warning('Warning', `Something went wrong!`, 'Okay');
     },
     [getUser.fulfilled](state, action) {
       state.user = action.payload;
@@ -33,7 +79,6 @@ const authSlice = createSlice({
     },
   },
 });
-
 
 const statusPending = (state, action) => {
   state.isLoading = true;

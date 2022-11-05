@@ -1,23 +1,33 @@
 import styled from 'styled-components';
 
 export const FilterSection = styled.div`
-background-color: #fff;
-padding: 15px;
-box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
-  0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
-margin-top: 15px;
-margin-bottom: 15px;
-max-width: 350px;
+  background: rgba(200, 205, 206, 0.6);
+  border-radius: 20px;
+  padding: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  max-width: 400px;
 `;
 
 export const FilterSectionLabel = styled.label`
-display: flex;
+  display: block;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
 `;
 
 export const FilterSectionInput = styled.input`
-width: 100%;
-&:hover,
-&:focus {
-  border: 2px solid #1d88c5;
-}
+  display: block;
+  padding: 0 15px;
+  border-width: 0;
+  line-height: 25px;
+  border-radius: 20px;
+  color: #000;
+  background: rgba(255, 255, 255, 0.2);
+  font-family: 'Roboto', sans-serif;
+  margin-top: 10px;
+  &:hover,
+  &:focus {
+    border: 2px solid #fff;
+  }
 `;

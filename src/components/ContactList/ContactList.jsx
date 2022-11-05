@@ -7,6 +7,7 @@ import {
   DeleteBtn,
   ErrorMesage,
   ContactListItemContext,
+  ContactListMesage,
 } from './ContactList.styled';
 import { fetchContacts } from '../../redux/operations';
 import { Loader } from '../Loader/Loader';
@@ -46,31 +47,38 @@ export const ContactList = () => {
       {error && (
         <ErrorMesage>oops, something went wrong, change the side.</ErrorMesage>
       )}
+      {contacts.length === 0 && (
+        <ContactListMesage>here will be your contacts</ContactListMesage>
+      )}
       <ContactListSection>
         {contacts.length !== 0 &&
-          filterContacts().map(item => (
-            <ContactListItem key={item.id}>
-              <ContactListItemContext>
-                {item.name}: {item.phone}
-              </ContactListItemContext>
-              {loading &&
-              actionType === 'contacts/deleteContact/pending' &&
-              onClick &&
-              onClick === item.id ? (
-                <LoaderFromButtonDelete />
-              ) : (
-                <DeleteBtn
-                  type="button"
-                  onClick={() => {
-                    dispatch(deleteContact(item.id));
-                    setOnClick(item.id);
-                  }}
-                >
-                  Delete
-                </DeleteBtn>
-              )}
-            </ContactListItem>
-          ))}
+          [...filterContacts()]
+            .sort((firstName, secondName) =>
+              firstName.name.localeCompare(secondName.name)
+            )
+            .map(item => (
+              <ContactListItem key={item.id}>
+                <ContactListItemContext>
+                  {item.name}: {item.number}
+                </ContactListItemContext>
+                {loading &&
+                actionType === 'contacts/deleteContact/pending' &&
+                onClick &&
+                onClick === item.id ? (
+                  <LoaderFromButtonDelete />
+                ) : (
+                  <DeleteBtn
+                    type="button"
+                    onClick={() => {
+                      dispatch(deleteContact(item.id));
+                      setOnClick(item.id);
+                    }}
+                  >
+                    &#128686;
+                  </DeleteBtn>
+                )}
+              </ContactListItem>
+            ))}
       </ContactListSection>
     </>
   );

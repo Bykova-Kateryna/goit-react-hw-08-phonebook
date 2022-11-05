@@ -14,16 +14,17 @@ export const HeaderContainer = styled.header`
   padding-left: 24px;
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
 `;
 
 export const Link = styled(NavLink)`
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
-  color: black;
+  color: #000;
   font-weight: 500;
 
   &:hover,
@@ -33,6 +34,7 @@ export const Link = styled(NavLink)`
 
   &.active {
     color: #fff;
-    background-color: #2384f5;
+    background: rgba(0, 208, 255, 0.8);
+    border-radius: 20px;
   }
 `;

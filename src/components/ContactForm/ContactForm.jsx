@@ -34,7 +34,7 @@ function PhoneBookForm() {
     const form = event.target;
     const addName = {
       name: form.elements.name.value,
-      phone: form.elements.number.value,
+      number: form.elements.number.value,
     };
     if (findName(form.elements.name.value)) {
       return Report.failure(
@@ -51,28 +51,26 @@ function PhoneBookForm() {
   return (
     <ContactFofmSection>
       <Fofm onSubmit={handleSubmit}>
-        <div>
-          <FormLabel htmlFor={contactNameId}>Name</FormLabel>
-          <FormInput
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            id={contactNameId}
-          />
-        </div>
-        <div>
-          <FormLabel htmlFor={contactTellId}>Number</FormLabel>
-          <FormInput
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            id={contactTellId}
-          />
-        </div>
+        <FormLabel htmlFor={contactNameId}>Name</FormLabel>
+        <FormInput
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          id={contactNameId}
+        />
+
+        <FormLabel htmlFor={contactTellId}>Number</FormLabel>
+        <FormInput
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          id={contactTellId}
+        />
+
         {loading && actionType === 'contacts/addContact/pending' ? (
           <LoaderFromButtonAdd />
         ) : (

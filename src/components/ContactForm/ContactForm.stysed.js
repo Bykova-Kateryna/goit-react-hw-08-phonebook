@@ -1,37 +1,58 @@
 import styled from 'styled-components';
 
 export const ContactFofmSection = styled.div`
-  background-color: #fff;
-  max-width: 350px;
-  text-align: center;
+  background-color: tranperent;
+  max-width: 400px;
   padding: 15px;
-  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 20px;
 `;
 
 export const Fofm = styled.form`
-  border: 10px solid transparent;
-  color: #605756;
+  background: rgba(200, 205, 206, 0.6);
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  padding: 20px;
 `;
 
 export const FormLabel = styled.label`
   margin-right: 15px;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
 `;
 
 export const FormInput = styled.input`
-  width: 75%;
+  display: block;
+  padding: 0 15px;
+  border-width: 0;
+  line-height: 25px;
+  border-radius: 20px;
+  color: #000;
+  background: rgba(255, 255, 255, 0.2);
+  font-family: 'Roboto', sans-serif;
   &:hover,
   &:focus {
-    border: 2px solid #1d88c5;
+    border: 2px solid #fff;
   }
 `;
 export const FormBtn = styled.button`
-  margin-top: 15px;
+  width: 75%;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  border-radius: 20px;
+  border-width: 0;
+  background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
   &:hover,
   &:focus {
-    background-color: #1d88c5;
+    background: #fff;
+    color: #00d0ff;
   }
 `;
