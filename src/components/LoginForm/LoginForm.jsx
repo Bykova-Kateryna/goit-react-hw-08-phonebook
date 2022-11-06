@@ -9,12 +9,12 @@ import {
   LoginFormButton,
   LoginFormContainer,
 } from './LoginForm.styled';
-import { Loader } from 'components/Loader/Loader';
+import { LoaderFromLoginForm } from 'components/Loader/LoaderFromLoginForm';
 const LoginForm = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.auth.loading)
+  const loading = useSelector(state => state.auth.loading);
 
   const handleChange = e => {
     switch (e.target.name) {
@@ -31,7 +31,6 @@ const LoginForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.target;
     const user = {
       email: userEmail,
       password: userPassword,
@@ -40,15 +39,12 @@ const LoginForm = () => {
       return Notify.failure('Please fill in all fields!');
     } else {
       dispatch(logIn(user));
-      form.reset();
-      setUserEmail('');
-      setUserPassword('');
     }
   };
 
   return (
     <LoginFormContainer>
-      {loading ? <Loader/> : <LoginFormSection onSubmit={handleSubmit}>
+      <LoginFormSection onSubmit={handleSubmit}>
         <LoginFormLabel>
           Email
           <LoginFormInput type="email" name="email" onChange={handleChange} />
@@ -61,8 +57,10 @@ const LoginForm = () => {
             onChange={handleChange}
           />
         </LoginFormLabel>
-        <LoginFormButton type="submit">Login</LoginFormButton>
-      </LoginFormSection>}
+        <LoginFormButton type="submit">
+          {loading ? <LoaderFromLoginForm /> : 'login'}
+        </LoginFormButton>
+      </LoginFormSection>
     </LoginFormContainer>
   );
 };
