@@ -9,7 +9,7 @@ import {
   RegisterFormContainer,
 } from './RegisterForm.styled';
 import { Report } from 'notiflix/build/notiflix-report-aio';
-import { Loader } from 'components/Loader/Loader';
+import { LoaderFromLoginForm } from 'components/Loader/LoaderFromLoginForm';
 const RegisterForm = () => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -36,7 +36,6 @@ const RegisterForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.target;
     const user = {
       name: userName,
       email: userEmail,
@@ -56,19 +55,12 @@ const RegisterForm = () => {
         'Okay'
       );
     } else {
-      dispatch(register(user));
-      form.reset();
-      setUserName('');
-      setUserEmail('');
-      setUserPassword('');
+      dispatch(register(user));;
     }
   };
 
   return (
     <RegisterFormContainer>
-      {loading ? (
-        <Loader />
-      ) : (
         <RegisterFormSection onSubmit={handleSubmit}>
           <RegisterFormLabel>
             Name
@@ -95,9 +87,8 @@ const RegisterForm = () => {
               minlength="7"
             />
           </RegisterFormLabel>
-          <RegisterFormButton type="submit">Registration</RegisterFormButton>
+          <RegisterFormButton type="submit"> {loading ? <LoaderFromLoginForm /> : 'Registration'}</RegisterFormButton>
         </RegisterFormSection>
-      )}
     </RegisterFormContainer>
   );
 };
